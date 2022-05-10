@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Empleado } from "src/app/models/Empleado";
-import { EmpleadoService } from 'src/app/services/empleado.service';
+import { Persona } from "src/app/models/persona";
+import { PersonaService } from 'src/app/services/persona.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -17,12 +17,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddEditEncuestaComponent implements OnInit {
   generosMusicales: string[] = ['Rock', 'Pop', 'Jazz', 'Clásica'];
-  idEmpleado: any;
+  idPersona: any;
   accion = 'Crear';
 
   myForm: FormGroup;
   constructor(private fb: FormBuilder,
-              private empleadoService: EmpleadoService, 
+              private personaService: PersonaService, 
               private route: Router,
               private snackBar: MatSnackBar,
               private aRoute: ActivatedRoute) { 
@@ -31,40 +31,40 @@ export class AddEditEncuestaComponent implements OnInit {
       generosMusical: ['', [Validators.required]]
     });
     const idParam = 'id';
-    this.idEmpleado = this.aRoute.snapshot.params[idParam];
+    this.idPersona = this.aRoute.snapshot.params[idParam];
 
   }
 
   ngOnInit(): void {
-    if (this.idEmpleado !== undefined) {
+    if (this.idPersona !== undefined) {
       this.accion = 'Editar';
       this.esEditar();
     }
   }
 
-  guardarEmpleado() {
-    const empleado: Empleado = {
+  guardarEncuestaPersona() {
+    const persona: Persona = {
       correo: this.myForm.get('correo').value,
       generosMusical: this.myForm.get('generosMusical').value
     };
 
-    if (this.idEmpleado !== undefined) {
-      this.editarEmpleado(empleado);
+    if (this.idPersona !== undefined) {
+      this.editarEncuestaPersona(persona);
     } else {
-      this.agregarEmpleado(empleado);
+      this.agregarEncuestaPersona(persona);
     }
   }
 
-  agregarEmpleado(empleado: Empleado) {
-    this.empleadoService.agregarEncuesta(empleado);
+  agregarEncuestaPersona(persona: Persona) {
+    this.personaService.agregarEncuesta(persona);
     this.snackBar.open('Encuesta registrada con éxito!', '', {
       duration: 3000
     });
     this.route.navigate(['/']);
   }
 
-  editarEmpleado(empleado: Empleado) {
-    this.empleadoService.editEncuesta(empleado, this.idEmpleado);
+  editarEncuestaPersona(persona: Persona) {
+    this.personaService.editEncuesta(persona, this.idPersona);
     this.snackBar.open('Encuesta actualizada con éxito!', '', {
       duration: 3000
     });
@@ -72,15 +72,15 @@ export class AddEditEncuestaComponent implements OnInit {
   }
 
   esEditar() {
-    const empleado: Empleado = this.empleadoService.getEncuesta(this.idEmpleado);
-    console.log(empleado);
+    const persona: Persona = this.personaService.getEncuesta(this.idPersona);
+    console.log(persona);
     this.myForm.patchValue({
-      nombreCompleto: empleado.nombreCompleto,
-      correo: empleado.correo,
-      fechaIngreso: empleado.fechaIngreso,
-      telefono: empleado.telefono,
-      generosMusical: empleado.generosMusical,
-      sexo: empleado.sexo,
+      nombreCompleto: persona.nombreCompleto,
+      correo: persona.correo,
+      fechaIngreso: persona.fechaIngreso,
+      telefono: persona.telefono,
+      generosMusical: persona.generosMusical,
+      sexo: persona.sexo,
     });
   }
 

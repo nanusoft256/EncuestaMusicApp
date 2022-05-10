@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { EmpleadoService } from 'src/app/services/empleado.service';
-import { Empleado } from "src/app/models/Empleado";
+import { PersonaService } from 'src/app/services/persona.service';
+import { Persona } from "src/app/models/persona";
 import { MatDialog } from '@angular/material/dialog';
 import { MensajeConfirmacionComponent } from '../shared/mensaje-confirmacion/mensaje-confirmacion.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,7 +19,7 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 export class ListEncuestaComponent implements OnInit {
   displayedColumns: string[] = ['correo', 'generosMusical', 'acciones'];
   dataSource = new MatTableDataSource();
-  listEncuesta: Empleado[];
+  listEncuesta: Persona[];
 
   chartOptions: ChartOptions = {
     responsive: true,
@@ -44,12 +44,12 @@ export class ListEncuestaComponent implements OnInit {
   chartLegend = true;
   chartPlugins = [pluginDataLabels];
   chartData: ChartDataSets[] = [
-    { data: [45, 37, 60, 70], label: 'Best Fruits' }
+    { data: [45, 37, 60, 70], label: 'Tipos de música' }
   ];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  constructor(private empleadoService: EmpleadoService, public dialog: MatDialog,
+  constructor(private personaService: PersonaService, public dialog: MatDialog,
               public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class ListEncuestaComponent implements OnInit {
   }
 
   cargarEncuestas() {
-    this.listEncuesta = this.empleadoService.getEncuestas();
+    this.listEncuesta = this.personaService.getEncuestas();
     this.dataSource = new MatTableDataSource(this.listEncuesta);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -78,7 +78,7 @@ export class ListEncuestaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'aceptar') {
-        this.empleadoService.eliminarEncuesta(index);
+        this.personaService.eliminarEncuesta(index);
         this.cargarEncuestas();
         this.snackBar.open('Encuesta eliminada con éxito!', '', {
           duration: 3000
