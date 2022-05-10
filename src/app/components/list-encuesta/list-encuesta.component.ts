@@ -9,6 +9,7 @@ import { MensajeConfirmacionComponent } from '../shared/mensaje-confirmacion/men
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-list-encuesta',
@@ -20,15 +21,30 @@ export class ListEncuestaComponent implements OnInit {
   dataSource = new MatTableDataSource();
   listEncuesta: Empleado[];
 
-  barChartOptions: ChartOptions = {
+  chartOptions: ChartOptions = {
     responsive: true,
+    scales: {
+      xAxes: [{
+          stacked: true
+      }],
+      yAxes: [{
+          stacked: true
+      }]
+    },
+    plugins: {
+      datalabels: {
+        font: {
+          size: 20,
+        }
+      }
+    }
   };
-  barChartLabels: Label[] = ['Apple', 'Banana', 'Kiwifruit', 'Blueberry', 'Orange', 'Grapes'];
-  barChartType: ChartType = 'bar';
-  barChartLegend = true;
-  barChartPlugins = [];
-  barChartData: ChartDataSets[] = [
-    { data: [45, 37, 60, 70, 46, 33], label: 'Best Fruits' }
+  chartLabels: Label[] = ['Rock', 'Pop', 'Jazz', 'Clásica'];
+  chartType: ChartType = 'bar';
+  chartLegend = true;
+  chartPlugins = [pluginDataLabels];
+  chartData: ChartDataSets[] = [
+    { data: [45, 37, 60, 70], label: 'Best Fruits' }
   ];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;

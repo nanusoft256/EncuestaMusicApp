@@ -8,8 +8,8 @@
 </div>
 
 <div class="row">
-  <div class="col-lg-4">
-    <h2>Listado de Encuestados</h2>
+  <div class="col-lg-6">
+    <h2>Lista de Encuestados</h2>
     <mat-form-field>
       <mat-label>Filtro</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Filtro" autocomplete="off">
@@ -49,12 +49,12 @@
     <h2>Resumen Gráfico</h2>
     <div class="chart-wrapper">
       <canvas baseChart 
-      [datasets]="barChartData"
-      [labels]="barChartLabels"
-      [options]="barChartOptions"
-      [plugins]="barChartPlugins"
-      [legend]="barChartLegend"
-      [chartType]="barChartType">
+      [datasets]="chartData"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [plugins]="chartPlugins"
+      [legend]="chartLegend"
+      [chartType]="chartType">
     </canvas>
   </div>
   </div>
