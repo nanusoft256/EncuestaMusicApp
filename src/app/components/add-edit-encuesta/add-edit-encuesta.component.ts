@@ -56,7 +56,7 @@ export class AddEditEncuestaComponent implements OnInit {
   }
 
   agregarEmpleado(empleado: Empleado) {
-    this.empleadoService.agregarEmpleado(empleado);
+    this.empleadoService.agregarEncuesta(empleado);
     this.snackBar.open('Encuesta registrada con éxito!', '', {
       duration: 3000
     });
@@ -64,7 +64,7 @@ export class AddEditEncuestaComponent implements OnInit {
   }
 
   editarEmpleado(empleado: Empleado) {
-    this.empleadoService.editEmpleado(empleado, this.idEmpleado);
+    this.empleadoService.editEncuesta(empleado, this.idEmpleado);
     this.snackBar.open('Encuesta actualizada con éxito!', '', {
       duration: 3000
     });
@@ -72,7 +72,7 @@ export class AddEditEncuestaComponent implements OnInit {
   }
 
   esEditar() {
-    const empleado: Empleado = this.empleadoService.getEmpleado(this.idEmpleado);
+    const empleado: Empleado = this.empleadoService.getEncuesta(this.idEmpleado);
     console.log(empleado);
     this.myForm.patchValue({
       nombreCompleto: empleado.nombreCompleto,

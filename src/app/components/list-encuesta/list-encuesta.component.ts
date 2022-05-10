@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ListEncuestaComponent implements OnInit {
   displayedColumns: string[] = ['correo', 'generosMusical', 'acciones'];
   dataSource = new MatTableDataSource();
-  listEmpleado: Empleado[];
+  listEncuesta: Empleado[];
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -24,7 +24,7 @@ export class ListEncuestaComponent implements OnInit {
               public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.cargarEmpleados();
+    this.cargarEncuestas();
   
   }
 
@@ -33,14 +33,14 @@ export class ListEncuestaComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  cargarEmpleados() {
-    this.listEmpleado = this.empleadoService.getEmpleados();
-    this.dataSource = new MatTableDataSource(this.listEmpleado);
+  cargarEncuestas() {
+    this.listEncuesta = this.empleadoService.getEncuestas();
+    this.dataSource = new MatTableDataSource(this.listEncuesta);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  eliminarEmpleado(index: number) {
+  eliminarEncuesta(index: number) {
 
     const dialogRef = this.dialog.open(MensajeConfirmacionComponent, {
       width: '350px',
@@ -49,8 +49,8 @@ export class ListEncuestaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'aceptar') {
-        this.empleadoService.eliminarEmpleado(index);
-        this.cargarEmpleados();
+        this.empleadoService.eliminarEncuesta(index);
+        this.cargarEncuestas();
         this.snackBar.open('Encuesta eliminada con éxito!', '', {
           duration: 3000
         });

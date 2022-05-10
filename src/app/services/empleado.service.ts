@@ -5,7 +5,7 @@ import { Empleado } from "../models/Empleado";
   providedIn: 'root'
 })
 export class EmpleadoService {
-  listEmpleado: Empleado[] = [
+  listEncuesta: Empleado[] = [
     {
       nombreCompleto: 'Julio Palomino', correo: 'nanu@gmail.com',
       fechaIngreso: new Date(), generosMusical: 'Jazz'
@@ -14,28 +14,28 @@ export class EmpleadoService {
 
   constructor() { }
 
-  getEmpleados() {
-    return this.listEmpleado.slice();
+  getEncuestas() {
+    return this.listEncuesta.slice();
   }
 
-  eliminarEmpleado(index: number) {
-    this.listEmpleado.splice(index, 1);
+  eliminarEncuesta(index: number) {
+    this.listEncuesta.splice(index, 1);
   }
 
-  agregarEmpleado(empleado: Empleado) {
-    this.listEmpleado.unshift(empleado);
+  agregarEncuesta(encuesta: Empleado) {
+    this.listEncuesta.unshift(encuesta);
   }
 
-  getEmpleado(index: number) {
-    return this.listEmpleado[index];
+  getEncuesta(index: number) {
+    return this.listEncuesta[index];
   }
 
-  editEmpleado(empleado: Empleado, idEmpleado: number){
-    this.listEmpleado[idEmpleado].nombreCompleto = empleado.nombreCompleto;
-    this.listEmpleado[idEmpleado].correo = empleado.correo;
-    this.listEmpleado[idEmpleado].fechaIngreso = empleado.fechaIngreso;
-    this.listEmpleado[idEmpleado].telefono = empleado.telefono;
-    this.listEmpleado[idEmpleado].sexo = empleado.sexo;
-    this.listEmpleado[idEmpleado].generosMusical = empleado.generosMusical;
+  editEncuesta(encuesta: Empleado, idEmpleado: number){
+    this.listEncuesta[idEmpleado].nombreCompleto = encuesta.nombreCompleto;
+    this.listEncuesta[idEmpleado].correo = encuesta.correo;
+    this.listEncuesta[idEmpleado].fechaIngreso = encuesta.fechaIngreso;
+    this.listEncuesta[idEmpleado].telefono = encuesta.telefono;
+    this.listEncuesta[idEmpleado].sexo = encuesta.sexo;
+    this.listEncuesta[idEmpleado].generosMusical = encuesta.generosMusical;
   }
 }
