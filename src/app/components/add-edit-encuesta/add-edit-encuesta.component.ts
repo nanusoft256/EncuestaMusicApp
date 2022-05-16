@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Persona } from "src/app/models/persona";
-import { PersonaService } from 'src/app/services/persona.service';
+import { Encuesta } from "src/app/models/encuesta";
+import { EncuestaService } from 'src/app/services/encuesta.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -16,55 +16,58 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 }]
 })
 export class AddEditEncuestaComponent implements OnInit {
-  generosMusicales: string[] = ['Rock', 'Pop', 'Jazz', 'Clásica'];
-  idPersona: any;
+  generoMusicales: string[] = ['Rock', 'Pop', 'Jazz', 'Clásica'];
+  idEncuesta: any;
   accion = 'Crear';
 
   myForm: FormGroup;
   constructor(private fb: FormBuilder,
-              private personaService: PersonaService, 
+              private personaService: EncuestaService, 
               private route: Router,
               private snackBar: MatSnackBar,
               private aRoute: ActivatedRoute) { 
     this.myForm = this.fb.group({
       correo: ['',  [Validators.required, Validators.email]],
-      generosMusical: ['', [Validators.required]]
+      generoMusical: ['', [Validators.required]]
     });
     const idParam = 'id';
-    this.idPersona = this.aRoute.snapshot.params[idParam];
+    this.idEncuesta = this.aRoute.snapshot.params[idParam];
 
   }
 
   ngOnInit(): void {
-    if (this.idPersona !== undefined) {
+    if (this.idEncuesta !== undefined) {
       this.accion = 'Editar';
       this.esEditar();
     }
   }
 
   guardarEncuestaPersona() {
-    const persona: Persona = {
+    const encuesta: Encuesta = {
       correo: this.myForm.get('correo').value,
-      generosMusical: this.myForm.get('generosMusical').value
+      generoMusical: this.myForm.get('generoMusical').value
     };
 
-    if (this.idPersona !== undefined) {
-      this.editarEncuestaPersona(persona);
+    //const encuesta: Encuesta = Object.assign({}, encuestaForm);
+
+    if (this.idEncuesta !== undefined) {
+      this.editarEncuestaPersona(encuesta);
     } else {
-      this.agregarEncuestaPersona(persona);
+      this.agregarEncuestaPersona(encuesta);
     }
   }
 
-  agregarEncuestaPersona(persona: Persona) {
-    this.personaService.agregarEncuesta(persona);
+  agregarEncuestaPersona(encuesta: Encuesta) {
+    //this.personaService.agregarEncuesta(encuesta);
+    this.personaService.createEncuesta(encuesta);
     this.snackBar.open('Encuesta registrada con éxito!', '', {
       duration: 3000
     });
     this.route.navigate(['/']);
   }
 
-  editarEncuestaPersona(persona: Persona) {
-    this.personaService.editEncuesta(persona, this.idPersona);
+  editarEncuestaPersona(encuesta: Encuesta) {
+    this.personaService.editEncuesta(encuesta, 1);
     this.snackBar.open('Encuesta actualizada con éxito!', '', {
       duration: 3000
     });
@@ -72,15 +75,11 @@ export class AddEditEncuestaComponent implements OnInit {
   }
 
   esEditar() {
-    const persona: Persona = this.personaService.getEncuesta(this.idPersona);
-    console.log(persona);
+    const encuesta: Encuesta = this.personaService.getEncuesta(this.idEncuesta);
+    console.log(encuesta);
     this.myForm.patchValue({
-      nombreCompleto: persona.nombreCompleto,
-      correo: persona.correo,
-      fechaIngreso: persona.fechaIngreso,
-      telefono: persona.telefono,
-      generosMusical: persona.generosMusical,
-      sexo: persona.sexo,
+      correo: encuesta.correo,
+      generoMusical: encuesta.generoMusical
     });
   }
 

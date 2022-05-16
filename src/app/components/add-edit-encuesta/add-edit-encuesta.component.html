@@ -26,13 +26,13 @@
             <div class="col-lg-12">
                 <mat-form-field class="example-container">
                     <mat-label>Género Musical</mat-label>
-                    <mat-select formControlName="generosMusical">
-                      <mat-option *ngFor="let generosMusical of generosMusicales" [value]="generosMusical">
-                        {{ generosMusical }}
+                    <mat-select formControlName="generoMusical">
+                      <mat-option *ngFor="let generoMusical of generoMusicales" [value]="generoMusical">
+                        {{ generoMusical }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <div *ngIf="myForm.get('generosMusical').hasError('required') && myForm.get('generosMusical').touched" style="margin-top: -20px;">
+                  <div *ngIf="myForm.get('generoMusical').hasError('required') && myForm.get('generoMusical').touched" style="margin-top: -20px;">
                     <span class="mda-form-msg">Este campo es <strong>requerido</strong></span>
                 </div>
             </div>

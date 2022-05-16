@@ -14,6 +14,7 @@ import { AngularMaterialModule } from './components/shared/angular-material/angu
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { ChartsModule } from 'ng2-charts';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ChartsModule } from 'ng2-charts';
     BrowserAnimationsModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
